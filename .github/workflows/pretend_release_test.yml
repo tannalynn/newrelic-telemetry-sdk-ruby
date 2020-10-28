@@ -1,0 +1,26 @@
+name: practice
+
+on: [push]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+  
+    - name: Build newrelic-telemetry_sdk gem
+      run: gem build newrelic-telemetry_sdk.gemspec
+
+    - name: Determine version
+      run: |
+      echo "{VERSION}={$(ls newrelic-telemetry_sdk-*.gem | ruby -pe 'sub(/newrelic-telemetry_sdk\-(.*).gem/, "\\1")')}" >> $GITHUB_ENV
+
+    - name: echo version
+      run: echo ${{ env.VERSION }}) 
+
+    - name: run rb script
+      run: ruby ./.github/workflows/scripts/practice.rb
+
+    
