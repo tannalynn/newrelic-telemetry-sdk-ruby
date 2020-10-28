@@ -17,7 +17,7 @@ jobs:
       run: echo "{VERSION}={$(ls newrelic-telemetry_sdk-*.gem | ruby -pe 'sub(/newrelic-telemetry_sdk\-(.*).gem/, "\\1")')}" >> $GITHUB_ENV
 
     - name: echo version
-      run: echo ${{ env.VERSION }}) 
+      run: echo "${{ env.VERSION }}"
 
     - name: run rb script
       run: ruby ./.github/workflows/scripts/practice.rb
